@@ -1,0 +1,14 @@
+<!--pages/map/map.wxml-->
+<view class='contain'>
+     <map id="map" class='map' longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange">
+      <cover-view class="scale-control">
+        <cover-view class='scale' style="border-bottom:2rpx solid #cccccc" bindtap='addScale'>
+          <cover-image class='scale-img' src='../img/plus.png'></cover-image>
+        </cover-view>
+        <cover-view class='scale' bindtap='minusScale'>
+          <cover-image class='scale-img' src='../img/minus.png'></cover-image>
+        </cover-view>
+      </cover-view>
+     </map>
+</view>
+

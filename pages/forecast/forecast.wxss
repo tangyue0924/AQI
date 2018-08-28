@@ -1,0 +1,53 @@
+/* pages/forecast/forecast.wxss */
+page{
+  background-color: #f8f8f8;
+  width: 100%;
+  height: 100%;
+}
+.forecast{
+  width: 100%;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+}
+
+.enlarge .forecast_items_date{
+  position: relative;
+  margin-top: 20rpx;
+}
+.enlarge .forecast_items_temp{
+  height: 70rpx;
+  font-size: 40rpx;
+  line-height: 70rpx;
+}
+.forecast_aqi_cloud{
+  width: 100rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 10rpx;
+  top: 10rpx;
+}
+.forecast_aqi{
+  width: 100rpx;
+  height: 70rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 40rpx;
+  color: #ffffff;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.wea{
+  width: 90rpx;
+  height: 90rpx;
+  position: absolute;
+  right: 20rpx;
+  top: 0;
+}
+
+
+
+
+

@@ -1,0 +1,108 @@
+<!--pages/forecast/forecast.wxml-->
+<image class='bg' src="../img/weather.jpg"></image>
+<view class='forecast'>
+
+  <view class='forecast_items' wx:for="{{useData}}" wx:key="" data-index="{{index}}" bindtap='scale'>
+     <view class='forecast_items_date'>
+      <text style="padding-right:20rpx">{{useData[index].T.aw}}</text>{{useData[index].T.d}}
+    </view> 
+    <view class='forecast_items_temp'>{{useData[index].minTemp}}~{{useData[index].maxTemp}}℃</view> 
+    <view class='forecast_table'>
+      <view class='list_table' wx:for="{{hours}}" wx:for-item="hour" wx:key=''>{{hour}}</view>
+    </view>
+    <view class='forecast_table' style='height:60rpx;'>
+      <view class='grid' wx:for="{{8}}" wx:key="" wx:for-index="num">
+        <view class="grid_first {{useData[index].minAqiClassName[num]}}>"></view>
+        <view class='grid_second {{useData[index].maxAqiClassName[num]}}'></view> 
+      </view>
+    </view>
+
+    <view class='forecast_table' style='font-size:10rpx;height:30rpx;line-height:30rpx;'>
+      <view class='list_table' wx:for="{{useData[index].minAqi}}" wx:for-item="minAqi" wx:key=''>
+        {{minAqi}}
+      </view>
+    </view>
+
+    <view class='forecast_table' style='font-size:10rpx;height:30rpx;line-height:30rpx;'>
+      <view class='list_table' wx:for="{{useData[index].maxAqi}}" wx:for-item="maxAqi" wx:key=''>
+        {{maxAqi}}
+      </view>
+    </view>
+
+    <view class='forecast_table' style='height:70rpx;'>
+        <ec-canvas style='width:{{width}};height:{{height}}' id="mychart-dom-bar{{index}}" canvas-id="mychart-bar{{index}}" ec="{{ec}}"></ec-canvas>
+    </view>
+
+    <view class='forecast_table' style='height:50rpx;'>
+      <view class='list_table' wx:for="{{useData[index].windDir}}" wx:for-item="windDir" wx:key=''>
+        <image class='wind_arrow' src='../img/wind_arrow.png' style='transform: rotate({{windDir}}deg)'></image>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<view class='mask' wx:if="{{mask}}">
+  <view class='enlarge' animation="{{animationData}}">
+    <view class='close'>
+      <image class='closeicon' bindtap='close' src='../img/close.png'></image>
+      <view class='closeline'></view>
+    </view>
+
+    <view class='forecast_items_date'> 
+      <view class='forecast_aqi_cloud' style='background-color:{{useData[whichOne].color}}'>
+        <image style='width:100%;height:100%' src='{{useData[whichOne].cloudPic}}'></image>
+        <view class='forecast_aqi'>{{useData[whichOne].aqi}}</view>
+      </view>
+      <text style="padding-right:20rpx">{{useData[whichOne].T.aw}}</text>{{useData[whichOne].T.d}}
+      <view class='wea'>
+        <image style='width:100%;height:100%' src='{{dailyWeather[whichOne].weaIcon}}'></image>
+      </view> 
+    </view>
+
+     <view class='forecast_items_temp'>{{useData[whichOne].minTemp}}~{{useData[whichOne].maxTemp}}℃</view>
+
+    <view class='forecast_table'>
+      <view class='list_table' wx:for="{{hours}}" wx:for-item="hour" wx:key=''>{{hour}}</view>
+    </view>
+    <view class='forecast_table' style='height:96rpx;'>
+      <view class='grid' wx:for="{{8}}" wx:key="" wx:for-index="num">
+        <view class="grid_first {{useData[whichOne].minAqiClassName[num]}}>"></view>
+        <view class='grid_second {{useData[whichOne].maxAqiClassName[num]}}'></view> 
+      </view>
+    </view>
+
+    <view class='forecast_table'>
+      <view class='list_table' wx:for="{{useData[whichOne].minAqi}}" wx:for-item="minAqi" wx:key=''>
+        {{minAqi}}
+      </view>
+    </view>
+
+    <view class='forecast_table'>
+      <view class='list_table' wx:for="{{useData[whichOne].maxAqi}}" wx:for-item="maxAqi" wx:key=''>
+        {{maxAqi}}
+      </view>
+    </view>
+
+    <view class='forecast_table' style='height:120rpx;'>
+      <ec-canvas class='mychart-dom' id="mychart-dom-bar6" canvas-id="mychart-bar6" ec="{{ ec }}"></ec-canvas>
+    </view>
+
+    <view class='forecast_table' style='height:70rpx;'>
+      <view class='list_table' wx:for="{{useData[whichOne].windDir}}" wx:for-item="windDir" wx:key=''>
+        <image class='wind_arrow' src='../img/wind_arrow.png' style='transform: rotate({{windDir}}deg)'></image>
+      </view>
+    </view>
+
+    <view class='forecast_table' style='height:120rpx;'>
+      <ec-canvas class="mychart-dom" id="mychart-dom-bar7" canvas-id="mychart-bar7" ec="{{ ec }}"></ec-canvas>
+    </view>
+
+    <view class='forecast_table'>
+      <view class='list_table list_table_t' style='color:{{at.color}}' wx:for="{{useData[whichOne].averageTepm}}" wx:for-item="at" wx:key=''>
+        {{at.t}}°
+      </view>
+    </view>
+  </view>
+</view>
+

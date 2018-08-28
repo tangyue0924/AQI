@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/open/open",
+    "pages/index/index",
+    "pages/forecast/forecast",
+    "pages/map/map"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#0086c8",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "selectedColor": "#fee199",
+    "color": "#ffffff",
+    "backgroundColor": "#0086c8",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "Home",
+        "iconPath": "pages/img/home.png",
+        "selectedIconPath": "pages/img/home_active.png"
+      },
+      {
+        "pagePath": "pages/forecast/forecast",
+        "text": "Forecast",
+        "iconPath": "pages/img/forecast.png",
+        "selectedIconPath": "pages/img/forecast_active.png"
+      },
+      {
+        "pagePath": "pages/map/map",
+        "text": "Map",
+        "iconPath": "pages/img/map.png",
+        "selectedIconPath": "pages/img/map_active.png"
+      }
+    ]
+  }
+}

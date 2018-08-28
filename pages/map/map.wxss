@@ -1,0 +1,31 @@
+/* pages/map/map.wxss */
+.contain{
+  width:100%; 
+  height:100%; 
+  position:fixed;
+  display: flex;
+  flex-direction: column;
+}
+.map{
+  width: 100%;
+  height: 100%;
+  position: relative; 
+}
+.scale-control{
+  position: absolute;
+  width: 70rpx;
+  height: 140rpx;
+  left: 30rpx;
+  top: 30rpx;
+  border-radius: 16rpx;
+  background-color: #ffffff;
+}
+.scale{
+  width: 100%;
+  height: 70rpx;
+}
+.scale .scale-img{
+  width: 60%;
+  height: 60%;
+  margin: 20% auto;
+}

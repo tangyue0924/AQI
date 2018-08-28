@@ -1,0 +1,193 @@
+<!--index.wxml-->
+<view class='body'>
+  <view class='header' style='background-color:{{polDescribe.color}}'>
+    <view class="header_title"> 
+      <view class="header_title_aqi">{{titleMes.curTimeaqi}}</view>
+      <view class="header_title_text" wx:if="{{polDescribe.text == 'Unhealthy for Sensitive Groups'}}">
+        <text>Unhealthy</text>
+        <view style='font-size:30rpx;line-height:30rpx;'>for Sensitive Groups</view>
+      </view>
+      <view class="header_title_text"  wx:elif="{{polDescribe.text == 'Very Unhealthy'}}">
+        <view style='font-size:30rpx;height:30rpx;line-height:60rpx'>Very</view>
+        <view>Unhealthy</view>
+      </view>
+      <view style='font-weight:bold; flex:1;' wx:else>
+        <text>{{polDescribe.text}}</text>
+      </view>
+
+      <view class='header_title_temp'>
+        <view class='temp'>{{titleMes.nowW.t}}°C-</view>
+        <view class='temp'>{{titleMes.nowW.w}}m/s-</view>
+      </view>
+
+      <view class='weather'>
+          <image class='weather_img' src='{{currentWeaSRC}}'></image>  
+      </view>
+    </view>
+
+    <view class='update'>
+      {{titleMes.updateT}}
+      <text wx:if="{{titleMes.primaryP!== undefined}}">
+        -Primary pollutant: {{titleMes.primaryP}}
+      </text>
+    </view>
+  </view>
+
+  <view class='scroll_area'>
+    <scroll-view scroll-x="true"  style="white-space: nowrap; display: flex;">
+      <view class='scroll_view_item' wx:for="{{forecastData}}" wx:key="">
+        <view class='days_week' bindtap='swichToForecast'>
+          <image class='days_week_bg' src='{{item.cloudPic}}'></image>
+          <view class='week'>{{item.T.w}} {{item.T.d}}</view>
+        </view>
+        <view class='days_temp'>{{item.minTemp}} ~ {{item.maxTemp}}℃</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class='chart_area'>
+    <view class='charts_left'>
+      <view class='charts_left_hour'>hour</view>
+      <view style='height:60rpx;line-height:60rpx;'><text style='font-size:24rpx'>PM</text>2.5</view>
+      <view style='height:30rpx;line-height:30rpx;'>min</view>
+      <view style='height:30rpx;line-height:30rpx;'>max</view>
+      <view style='height:130rpx;padding-top:20rpx'>Wind Speed (m/s)</view>
+      <view style='height:70rpx;line-height:50rpx'>weather</view>
+      <view style='height:110rpx;line-height:110rpx;'>Temp.</view>
+    </view>
+    
+    <view class='charts_right'>
+      <view class='forecast_items' wx:for="{{2}}" wx:key="" data-index='{{index}}'  bindtap='scale'>
+        <view class='forecast_items_date'> 
+          <text style="padding-right:20rpx">{{forecastData[index].T.w}}</text>{{forecastData[index].T.d}}
+        </view>
+        <view class='forecast_table'>
+          <view class='list_table' wx:for="{{hours}}" wx:for-item="hour" wx:key=''>{{hour}}</view>
+        </view>
+        <view class='forecast_table' style='height:60rpx;'>
+          <view class='grid' wx:for="{{8}}" wx:key="" wx:for-index="num">
+            <view class="grid_first {{forecastData[index].minAqiClassName[num]}}>"></view>
+            <view class='grid_second {{forecastData[index].maxAqiClassName[num]}}'></view> 
+          </view>
+        </view>
+
+        <view class='forecast_table' style='font-size:10rpx;height:30rpx;line-height:30rpx;'>
+          <view class='list_table' wx:for="{{forecastData[index].minAqi}}" wx:for-item="minAqi" wx:key=''>
+            {{minAqi}}
+          </view>
+        </view>
+
+        <view class='forecast_table' style='font-size:10rpx;height:30rpx;line-height:30rpx;'>
+          <view class='list_table' wx:for="{{forecastData[index].maxAqi}}" wx:for-item="maxAqi" wx:key=''>
+            {{maxAqi}}
+          </view>
+        </view>
+
+        <view class='forecast_table' style='height:80rpx;'>
+          <ec-canvas style='width:{{width}};height:{{height}}' id="mychart-dom-bar{{index*2+1}}" canvas-id="mychart-bar1" ec="{{ ec }}"></ec-canvas>
+        </view>
+
+        <view class='forecast_table' style='height:50rpx;margin-left:3rpx;'>
+          <view class='list_table' wx:for="{{forecastData[index].windDir}}" 
+          wx:for-item="windDir" wx:key=''>
+            <image class='wind_arrow' 
+            src='../img/wind_arrow.png' style='transform: rotate({{windDir}}deg)'></image>
+          </view>
+        </view>
+        
+        <view class='forecast_table' style='height:50rpx;background-color:#4882c2;margin-top:20rpx;margin-left:4rpx;'>
+          <view style='height:30rpx;flex:1;margin-top:10rpx;' wx:for="{{8}}" wx:key="" wx:for-index="i">
+            <image style='width:30rpx;height:30rpx; margin:0 auto;display:block;' src='{{weaMes[index][i]}}'></image> 
+          </view>
+        </view>
+
+        <view class='forecast_table' style='height:80rpx;'>
+          <ec-canvas style='width:{{width}};height:{{height}}' id="mychart-dom-bar{{index*2+2}}" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+        </view>
+
+        <view class='forecast_table' style='font-size:10rpx;height:30rpx;line-height:30rpx;'>
+          <view class='list_table list_table_t' style='color:{{at.color}}' wx:for="{{forecastData[index].averageTepm}}" wx:for-item="at" wx:key=''>
+            {{at.t}}°
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class='bottom'>
+    <view style='flex:1' wx:for="{{2}}" wx:key="">
+      <view>
+        <image class='forecast_table_img' style='width:50rpx; height:50rpx;' src='../img/weather.png'></image>
+      </view>
+      <view class='sunrise'>{{dailyWeather[index].sunrise}} ~ {{dailyWeather[index].sunset}}</view>
+      <view class='phase'>
+        <canvas class='canvas' style='width:{{width}};height:{{height}}' canvas-id="myCanvas{{index}}"></canvas>
+      </view>
+    </view>
+  </view>
+
+  <view class='mask' wx:if="{{mask}}">
+
+    <view class='enlarge' animation="{{animationData}}">
+      <view class='close'>
+        <image class='closeicon' bindtap='close' src='../img/close.png'></image>
+        <view class='closeline'></view>
+      </view>
+
+      <view class='forecast_items_date'> 
+        <text style="padding-right:20rpx">{{forecastData[showOne].T.w}}</text>{{forecastData[showOne].T.d}}
+      </view>
+      <view class='forecast_table'>
+        <view class='list_table' wx:for="{{hours}}" wx:for-item="hour" wx:key=''>{{hour}}</view>
+      </view>
+      <view class='forecast_table' style='height:96rpx;'>
+        <view class='grid' wx:for="{{8}}" wx:key="" wx:for-index="num">
+          <view class="grid_first {{forecastData[showOne].minAqiClassName[num]}}>"></view>
+          <view class='grid_second {{forecastData[showOne].maxAqiClassName[num]}}'></view> 
+        </view>
+      </view>
+  
+      <view class='forecast_table'>
+        <view class='list_table' wx:for="{{forecastData[showOne].minAqi}}" wx:for-item="minAqi" wx:key=''>
+          {{minAqi}}
+        </view>
+      </view>
+
+      <view class='forecast_table'>
+        <view class='list_table' wx:for="{{forecastData[showOne].maxAqi}}" wx:for-item="maxAqi" wx:key=''>
+          {{maxAqi}}
+        </view>
+      </view>
+
+      <view class='forecast_table' style='height:120rpx;'>
+        <ec-canvas class='mychart-dom'
+        id="mychart-dom-bar{{showOne*2+5}}" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+      </view>
+
+      <view class='forecast_table' style='height:70rpx;'>
+        <view class='list_table' wx:for="{{forecastData[showOne].windDir}}" wx:for-item="windDir" wx:key=''>
+          <image class='wind_arrow' src='../img/wind_arrow.png' style='transform: rotate({{windDir}}deg)'></image>
+        </view>
+      </view>
+        
+      <view class='forecast_table' style='height:80rpx;background-color:#4882c2;margin-top:20rpx;'>
+        <view style='height:60rpx;flex:1;margin-top:10rpx;' wx:for="{{8}}" wx:key="" wx:for-index="i">
+            <image style='width:60rpx;height:60rpx; margin:0 auto;display:block;' src='{{weaMes[showOne][i]}}'></image> 
+        </view>
+      </view>
+
+      <view class='forecast_table' style='height:120rpx;'>
+        <ec-canvas class="mychart-dom" id="mychart-dom-bar{{showOne*2+6}}" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+      </view>
+
+      <view class='forecast_table'>
+        <view class='list_table list_table_t' style='color:{{at.color}}' wx:for="{{forecastData[showOne].averageTepm}}" wx:for-item="at" wx:key=''>
+          {{at.t}}°
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+

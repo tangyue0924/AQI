@@ -1,0 +1,263 @@
+/**app.wxss**/
+::-webkit-scrollbar{
+   display:none; 
+}
+.bg{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  opacity: 0.1;
+}
+
+.forecast_items{
+  width: 50%;
+  padding: 0 10rpx;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.forecast_items_date{
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+.forecast_items_temp{
+  color: #929292;
+  text-align: center;
+  height: 30rpx;
+  line-height: 30rpx;
+  font-size: 24rpx;
+}
+.forecast_table{
+  display: flex;
+  font-size: 22rpx; 
+}
+.forecast_table .list_table{
+  flex: 1;
+  text-align: center;
+  font-size: 22rpx;
+}
+.forecast_table .list_table.list_table_t{
+  margin-left: 4rpx;
+}
+
+.grid{
+  flex:1;
+  position: relative;
+  padding-left:4rpx; 
+  box-sizing: border-box;
+}
+.grid .grid_first{
+  position: absolute;
+  left: 10.6%;
+  top: 2rpx;
+  width:0; 
+  height:0;
+  border-top:26rpx solid #009966;  
+  border-bottom:26rpx solid transparent;
+  border-right:16.4rpx solid transparent; 
+  border-left:16.4rpx solid #009966;
+}
+.grid .grid_first.level1{
+  border-top: 26rpx solid #009966;
+  border-left:16.4rpx solid #009966;
+}
+.grid .grid_first.level2{
+  border-top: 26rpx solid #ffde33;
+  border-left:16.4rpx solid #ffde33;
+}
+.grid .grid_first.level3{
+  border-top: 26rpx solid #ff9933;
+  border-left:16.4rpx solid #ff9933;
+}
+.grid .grid_first.level4{
+  border-top: 26rpx solid #cc0033;
+  border-left:16.4rpx solid #cc0033;
+}
+.grid .grid_first.level5{
+  border-top: 26rpx solid #660099;
+  border-left:16.4rpx solid #660099;
+}
+.grid .grid_first.level6{
+  border-top: 26rpx solid #7e0023;
+  border-left:16.4rpx solid #7e0023;
+}
+
+.grid .grid_second{
+  position: absolute;
+  left: 10.6%;
+  top: 2rpx;
+  width:0; 
+  height:0;
+  border-bottom:26rpx solid #ff9933;  
+  border-top:26rpx solid transparent;
+  border-left:16.4rpx solid transparent; 
+  border-right:16.4rpx solid #ff9933;
+}
+.grid .grid_second.level1{
+  border-bottom: 26rpx solid #009966;
+  border-right: 16.4rpx solid #009966;
+}
+.grid .grid_second.level2{
+  border-bottom: 26rpx solid #ffde33;
+  border-right:16.4rpx solid #ffde33;
+}
+.grid .grid_second.level3{
+  border-bottom: 26rpx solid #ff9933;
+  border-right:16.4rpx solid #ff9933;
+}
+.grid .grid_second.level4{
+  border-bottom: 26rpx solid #cc0033;
+  border-right:16.4rpx solid #cc0033;
+}
+.grid .grid_second.level5{
+  border-bottom: 26rpx solid #660099;
+  border-right:16.4rpx solid #660099;
+}
+.grid .grid_second.level6{
+  border-bottom: 26rpx solid #7e0023;
+  border-right:16.4rpx solid #7e0023;
+}
+
+.list_table .wind_arrow{
+  width: 80%;
+  height: 30rpx;
+  transform: rotate(0deg)
+}
+.mychart-dom{
+  width: 100%;
+  height: 100%;
+}
+
+
+.mask{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(66,66,66,0.8);
+  top: 0;
+  left: 0;
+}
+.enlarge{
+  width: 80%;
+  min-height: 74%;
+  position: absolute;
+  left: 10%;
+  top: 13%;
+  padding: 20rpx 10rpx;
+  border-radius: 20rpx; 
+  background-color: #e4e1eb;
+  transform: scale(0.01);
+}
+.close{
+  width: 80rpx;
+  height: 110rpx;
+  opacity: 0.5;
+  position: absolute;
+  top: -110rpx;
+  right: 0;
+}
+.closeicon{
+  width: 80rpx;
+  height: 80rpx;
+  vertical-align: top;
+}
+.closeline{
+  height: 30rpx;
+  width: 4rpx;
+  margin: 0 auto;
+  background-color: #b6b6b6;
+}
+
+.enlarge .forecast_items_date{
+  width: 100%;
+  height: 86rpx;
+  line-height: 86rpx;
+  font-size: 50rpx;
+  text-align: center;
+  position: relative;
+}
+
+.enlarge .forecast_table{
+  font-size: 36rpx; 
+}
+.enlarge .forecast_table .list_table{
+  font-size: 36rpx;
+}
+
+.enlarge .grid .grid_first{
+  position: absolute;
+  left: 10.6%;
+  width:0; 
+  height:0;
+  border-top:48rpx solid #009966;  
+  border-bottom:48rpx solid transparent;
+  border-right:32rpx solid transparent; 
+  border-left:32rpx solid #009966;
+}
+.enlarge .grid .grid_first.level1{
+  border-top: 48rpx solid #009966;
+  border-left:32rpx solid #009966;
+}
+.enlarge .grid .grid_first.level2{
+  border-top: 48rpx solid #ffde33;
+  border-left:32rpx solid #ffde33;
+}
+.enlarge .grid .grid_first.level3{
+  border-top: 48rpx solid #ff9933;
+  border-left:32rpx solid #ff9933;
+}
+.enlarge .grid .grid_first.level4{
+  border-top: 48rpx solid #cc0033;
+  border-left:32rpx solid #cc0033;
+}
+.enlarge .grid .grid_first.level5{
+  border-top: 48rpx solid #660099;
+  border-left:32rpx solid #660099;
+}
+.enlarge .grid .grid_first.level6{
+  border-top: 48rpx solid #7e0023;
+  border-left:32rpx solid #7e0023;
+}
+
+.enlarge .grid .grid_second{
+  position: absolute;
+  left: 10.6%;
+  width:0; 
+  height:0;
+  border-bottom:48rpx solid #ff9933;  
+  border-top:48rpx solid transparent;
+  border-left:32rpx solid transparent; 
+  border-right:32rpx solid #ff9933;
+}
+.enlarge .grid .grid_second.level1{
+  border-bottom: 48rpx solid #009966;
+  border-right: 32rpx solid #009966;
+}
+.enlarge .grid .grid_second.level2{
+  border-bottom: 48rpx solid #ffde33;
+  border-right:32rpx solid #ffde33;
+}
+.enlarge .grid .grid_second.level3{
+  border-bottom: 48rpx solid #ff9933;
+  border-right:32rpx solid #ff9933;
+}
+.enlarge .grid .grid_second.level4{
+  border-bottom: 48rpx solid #cc0033;
+  border-right:32rpx solid #cc0033;
+}
+.enlarge .grid .grid_second.level5{
+  border-bottom: 48rpx solid #660099;
+  border-right:32rpx solid #660099;
+}
+.enlarge .grid .grid_second.level6{
+  border-bottom: 48rpx solid #7e0023;
+  border-right:32rpx solid #7e0023;
+}
+.enlarge .list_table .wind_arrow{
+  width: 80%;
+  height: 56rpx;
+  transform: rotate(0deg)
+}
+

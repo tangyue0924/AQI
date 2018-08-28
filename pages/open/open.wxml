@@ -1,0 +1,9 @@
+<!--pages/open/open.wxml-->
+<view class='body'>
+  <image class='openbg' wx:if="{{authorize}}" src='../img/bg.jpg'></image>
+  <view class='contain' wx:else>
+    <view class='giventext'>需要您授权获取地理信息才能使用</view>
+    <button class='button' type='warn' bindopensetting open-type="openSetting">立即授权</button>
+  </view>
+</view>
+ 
