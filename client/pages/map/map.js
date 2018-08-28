@@ -50,7 +50,7 @@ Page({
       this.mapCtx.getRegion({
         success: function (res) {
           wx.request({
-            url: `http://localhost:80/map`,
+            url: `http://localhost:8080/map`,
             method: 'POST',
             data: {
               slatitude: res.southwest.latitude,

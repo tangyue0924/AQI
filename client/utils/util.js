@@ -14,7 +14,7 @@ const getData = function (geo,cb) {
   // 获取idx
   let that = this;
   wx.request({
-    url: `http://localhost:80/position`,
+    url: `http://localhost:8080/position`,
     method: 'POST',
     data: {
       lat: geo[0],
@@ -36,7 +36,7 @@ const getData = function (geo,cb) {
       } else {
         // 根据idx获取预测信息
         wx.request({
-          url: `http://localhost:80/forecast`,
+          url: `http://localhost:8080/forecast`,
           method: 'POST',
           data: {
             idx: res.data.data.idx
@@ -74,7 +74,7 @@ const getData = function (geo,cb) {
 
 const getWeather = function (geo,cb) {
   wx.request({
-    url: `http://localhost:80/weather`,
+    url: `http://localhost:8080/weather`,
     method: 'POST',
     data: {
       lat: geo[0],
@@ -93,7 +93,7 @@ const getWeather = function (geo,cb) {
 
 const getDailyWeather = function (geo, cb) {
   wx.request({
-    url: `http://localhost:80/dailyWeather`,
+    url: `http://localhost:8080/dailyWeather`,
     method: 'POST',
     data: {
       lat: geo[0],
