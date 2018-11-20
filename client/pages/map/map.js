@@ -50,7 +50,7 @@ Page({
       this.mapCtx.getRegion({
         success: function (res) {
           wx.request({
-            url: `http://localhost:8080/map`,
+            url: `https://ttianquan.com/map`,
             method: 'POST',
             data: {
               slatitude: res.southwest.latitude,

@@ -1,3 +1,4 @@
+
 const TSLOT = 8; //一天分为8个时间段（3小时）
 const DAYNUM = 6; //取6天的数据
 
@@ -7,74 +8,67 @@ const handleNavigationBar = title => {
   })
 }
 
-const getData = function (geo,cb) {
+function getIdx(geo){
+  return new Promise(function (resolve, reject) {
+    wx.request({
+      url: `https://ttianquan.com/position`,
+      method: 'POST',
+      data: {
+        lat: geo[0],
+        lon: geo[1]
+      },
+      success: function (res) {
+        if (res.data.status === 'ok') {
+          resolve(res.data.data.idx);
+        } else {
+          getIdx(geo)
+        }
+      }
+    })
+  })
+}
+
+function getForecastMes(idx) {
+  return new Promise(function (resolve, reject) {
+    wx.request({
+      url: `https://ttianquan.com/forecast`,
+      method: 'POST',
+      data: {
+        idx: idx
+      },
+      success: function (res) {
+        if (res.statusCode === 200) {
+          resolve(res.data.rxs.obs[0].msg)
+        } else {
+          wx.showToast({
+            title: res.data.errMsg + ',请下拉重试',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
+    })
+  })
+}
+
+const getData = function(geo,cb) {
   wx.showLoading({
     title: '加载中',
   })
   // 获取idx
-  let that = this;
-  wx.request({
-    url: `http://localhost:8080/position`,
-    method: 'POST',
-    data: {
-      lat: geo[0],
-      lon: geo[1]
-    },
-    success: function (res) {
-      if (res.data.status == 408) {
-        wx.hideLoading()
-        wx.hideNavigationBarLoading();
-        wx.showToast({
-          title: res.data.mes+'请重试',
-          icon:'none',
-          duration: 2000
-        })
-        return
-      }
-      if (res.data.status == 'nug') {
-        getData(geo,cb)
-      } else {
-        // 根据idx获取预测信息
-        wx.request({
-          url: `http://localhost:8080/forecast`,
-          method: 'POST',
-          data: {
-            idx: res.data.data.idx
-          },
-          success: function (res) {
-            wx.hideLoading()
-            // 隐藏导航栏加载框
-            wx.hideNavigationBarLoading();
-            // 停止下拉动作
-            wx.stopPullDownRefresh();
-            if (res.data.status == 408) {
-              wx.showToast({
-                title: res.data.mes + '请重试',
-                icon: 'none',
-                duration: 2000
-              })
-              return
-            }
-            let time = new Date().getTime();
-            wx.setStorage({
-              key: 'aqi_time',
-              data: time,
-            })
-            wx.setStorage({
-              key: 'aqi_data',
-              data: res.data.rxs.obs[0].msg,
-            })
-            cb(res.data.rxs.obs[0].msg)
-          }
-        })
-      }
-    }
+  getIdx(geo).then(idx=>{
+    getForecastMes(idx).then(data=>{
+      wx.hideLoading() // 停止loading
+      wx.hideNavigationBarLoading(); // 隐藏导航栏加载框
+      wx.stopPullDownRefresh(); // 停止下拉动作
+      cb(data)
+    })
   })
 }
 
 const getWeather = function (geo,cb) {
   wx.request({
-    url: `http://localhost:8080/weather`,
+    url: `https://ttianquan.com/weather`,
     method: 'POST',
     data: {
       lat: geo[0],
@@ -93,7 +87,7 @@ const getWeather = function (geo,cb) {
 
 const getDailyWeather = function (geo, cb) {
   wx.request({
-    url: `http://localhost:8080/dailyWeather`,
+    url: `https://ttianquan.com/dailyWeather`,
     method: 'POST',
     data: {
       lat: geo[0],
@@ -171,10 +165,9 @@ const analysisData = function (obj){
     }
   }
   // 第一条数据的时间点
-  console.log(aqiData)
+  // console.log(aqiData)
   let firstTime = aqiData[index * TSLOT].t;
-
-  for (let i = index * TSLOT; i < (TSLOT * DAYNUM + index * TSLOT); i++) {
+  for (let i = index * TSLOT; i < (aqiData.length - index * TSLOT-1); i++) {
     let a = Math.floor((i - index * TSLOT)/8);
     result[a].minAqi.push(aqiData[i].v[0])
     result[a].maxAqi.push(aqiData[i].v[1])
