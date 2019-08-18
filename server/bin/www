@@ -13,7 +13,7 @@ var fs = require('fs');
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.env.PORT ||'8080' || '80'||'443');
+var port = normalizePort(process.env.PORT || 3001);
 app.set('port', port);
 /**
  * Create HTTP server.
@@ -23,26 +23,27 @@ var server = http.createServer(app);
 //添加 Create HTTPS server.  
 //根据项目的路径导入生成的证书文件
 // console.log(fs.readFileSync('./privatekey.key')) 
-// var options = {  
-//     key: fs.readFileSync('./privatekey.key'),  
-//     cert: fs.readFileSync('./certificate.crt')  
-// };  
+var options = {  
+    key: fs.readFileSync('./cert/www.tywuxi.cn.key'),  
+    cert: fs.readFileSync('./cert/www.tywuxi.cn.crt')  
+};  
 
-// var httpsServer = https.createServer(options,app); 
+var httpsServer = https.createServer(options,app); 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port);
-console.log(port);
+console.log('http port: ' + port);
 server.on('error', onError);
 server.on('listening', onListening);
 
 // 添加 监听   
-var httpPort = normalizePort(process.env.PORT || '443');
-// httpsServer.listen(httpPort);  
-// httpsServer.on('error',onError);  
-// httpsServer.on('listening',onListening); 
+var httpPort = normalizePort(process.env.PORT || '8080');
+console.log('https port: ' + httpPort);
+httpsServer.listen(httpPort);  
+httpsServer.on('error',onError);  
+httpsServer.on('listening',onListening); 
 /**
  * Normalize a port into a number, string, or false.
  */
