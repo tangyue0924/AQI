@@ -163,7 +163,6 @@ router.post('/dailyWeather', function (req, res, next) {
 });
 
 router.post('/search', function (req, res, next) {
-    console.log(req.body)
     let url = `https://api.waqi.info/search/?token=fb3955d54407a523cf9ef7e026d3b92d49503703&keyword=${req.body.city}`
     request({
         url: url,
@@ -173,9 +172,38 @@ router.post('/search', function (req, res, next) {
         } 
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body)
             res.send(body)
         }
     });
 });
+
+router.post("/weather/hours", (req, res) => {
+    let url = `https://api.weather.com/v1/geocode/${req.body.lat}/${req.body.lon}/forecast/hourly/240hour.json?apiKey=6532d6454b8aa370768e63d6ba5a832e&units=m`;
+    request({
+        url: url,
+        method: "GET",
+        headers: {
+            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
+        } 
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+    });
+})
+
+router.post("/weather/tenday", (req, res) => {
+    let url = `https://api.weather.com/v1/geocode/${req.body.lat}/${req.body.lon}/forecast/daily/10day.json?apiKey=6532d6454b8aa370768e63d6ba5a832e&units=m`;
+    request({
+        url: url,
+        method: "GET",
+        headers: {
+            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
+        } 
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body)
+        }
+    });
+})
 module.exports = router;
