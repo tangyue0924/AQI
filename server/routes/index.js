@@ -22,7 +22,8 @@ router.post('/position', function (req, res, next) {
         url: url,  
         method: "GET",
         headers: {
-            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
+            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36",
+            "Content-Type": "application/x-www-form-urlencoded"
         } 
     }, function (error, response, body) {
         if(request_timer!=null){
