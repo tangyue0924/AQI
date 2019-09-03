@@ -82,7 +82,7 @@ router.post('/getForecast', function (req, res, next) {
         }
      });
     
-    let url = `https://api.waqi.info/feed/geo:${req.body.lat};${req.body.lon}/?token=fb3955d54407a523cf9ef7e026d3b92d49503703`
+    let url = `https://api.waqi.info/feed/geo:${req.body.lat};${req.body.lon}/?token=bUxTMDFM7/qwd2IpSHE6MyZGy2psfWo3AAIAAA==`
     
     request({
         url: url,  
