@@ -82,7 +82,7 @@ router.post('/getForecast', function (req, res, next) {
         }
      });
     
-    let url = `https://api.waqi.info/feed/geo:${req.body.lat};${req.body.lon}/?token=bUxTMDFM7/qwd2IpSHE6MyZGy2psfWo3AAIAAA==`
+    let url = `https://api.waqi.info/feed/geo:${req.body.lat};${req.body.lon}/?token=fb3955d54407a523cf9ef7e026d3b92d49503703`
     
     request({
         url: url,  
@@ -94,13 +94,27 @@ router.post('/getForecast', function (req, res, next) {
         if (!error && response.statusCode == 200) {
             let idx = JSON.parse(response.body).data.idx;
             console.log(idx)
-            let url2 = `https://api.waqi.info/api/feed/@${idx}/obs.en.json`
-            request({
+            let url2 = `https://api.waqi.info/api/feed/@${idx}/obs.en.json`;
+            // request.post(url2, {
+            //     formData: {
+            //         "key": "_2Y2EvHB9IFVkfDTcLSyJWXmpjdEc9AycZFUYvLw==",
+            //         "token": "bUxTMDFM7/qwd2IpSHE6MyZGy2psfWo3AAIAAA==",
+            //         "uid": "qvuUz1567494581719",
+            //         "rqc": "2"
+            //     }
+            // })
+            request.post({
                 url: url2,
-                method: "GET",
+                method: "POST",
                 headers: {
                     "User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36"
-                } 
+                },
+                formData: {
+                    "key": "_2Y2EvHB9IFVkfDTcLSyJWXmpjdEc9AycZFUYvLw==",
+                    "token": "bUxTMDFM7/qwd2IpSHE6MyZGy2psfWo3AAIAAA==",
+                    "uid": "qvuUz1567494581719",
+                    "rqc": "2"
+                }
             }, function (error, response, body) {
                 console.log(response)
                 if(request_timer!=null){
