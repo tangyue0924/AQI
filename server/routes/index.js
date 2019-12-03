@@ -3,6 +3,7 @@ var path = require('path');
 var router = express.Router();
 var request = require('request')
 var request_timer = null;
+const jq = require("../jq/jq");
 
 router.post('/position', function (req, res, next) {
     let timeout = false;
@@ -14,7 +15,7 @@ router.post('/position', function (req, res, next) {
             timeout = true;
             return res.json({ status: 408, mes: '请求超时' });
         }
-     });
+    });
     
     let url = `https://api.waqi.info/feed/geo:${req.body.lat};${req.body.lon}/?token=fb3955d54407a523cf9ef7e026d3b92d49503703`
     
@@ -80,7 +81,7 @@ router.post('/getForecast', function (req, res, next) {
             timeout = true;
             return res.json({ status: 408, mes: '请求超时' });
         }
-     });
+	});
     
     let url = `https://api.waqi.info/feed/geo:${req.body.lat};${req.body.lon}/?token=fb3955d54407a523cf9ef7e026d3b92d49503703`
     
@@ -116,7 +117,6 @@ router.post('/getForecast', function (req, res, next) {
                     "rqc": "2"
                 }
             }, function (error, response, body) {
-                console.log(response)
                 if(request_timer!=null){
                     clearTimeout(request_timer);
                 }
@@ -220,5 +220,9 @@ router.post("/weather/tenday", (req, res) => {
             res.send(body)
         }
     });
+})
+
+router.get("/jieqi", (req, res) => {
+	res.send(jq());
 })
 module.exports = router;
