@@ -208,13 +208,18 @@ function runLunar() {
     const lunar = LunarCalendar.solarToLunar(today.getFullYear(), today.getMonth() + 1, today.getDate());
     if (lunar.term) {
         const termCn = lunar.term.slice(0, 1) + "\n" + lunar.term.slice(1);
+        var SolarTermPinyin = new Array(
+            "xiaohan", "dahan", "lichun", "yushui", "jingzhe", "chunfen",
+            "qingming", "guyu", "lixia", "xiaoman", "mangzhong", "xiazhi",
+            "xiaoshu", "dashu", "liqiu", "chushu", "bailu", "qiufen",
+            "hanlu", "shuangjiang", "lidong", "xiaoxue", "daxue", "dongzhi");
         const SolarTermStr = new Array(
             "小\n寒", "大\n寒", "立\n春", "雨\n水", "惊\n蛰", "春\n分",
             "清\n明", "谷\n雨", "立\n夏", "小\n满", "芒\n种", "夏\n至",
             "小\n暑", "大\n暑", "立\n秋", "处\n暑", "白\n露", "秋\n分",
             "寒\n露", "霜\n降", "立\n冬", "小\n雪", "大\n雪", "冬\n至");
 
-        const pinyin = SolarTermStr[getArrayIndex(SolarTermStr, termCn)];
+        const pinyin = SolarTermPinyin[getArrayIndex(SolarTermStr, termCn)];
         const res = {
             isJieqi: true,
             text: pinyin,
@@ -238,6 +243,8 @@ function runLunar() {
         return res;
     }
 }
+
+console.log(runLunar());
 
 
 module.exports = runLunar;
